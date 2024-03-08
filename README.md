@@ -28,15 +28,15 @@ Ejecuta el proyecto con el siguiente comando:
 build:dev
 start:dev
 ```
+
 El servidor estará disponible en [http://localhost:3000](http://localhost:3000).
 
 ## Estructura del Proyecto
 
 Describe la estructura de directorios del proyecto y la funcionalidad de cada uno.
 
-
-
 - **src/:** Contiene los principales archivos fuente del proyecto.
+
   - **controllers/:** Controladores que manejan la lógica de negocio.
   - **database/:** Módulos que gestionan la conexión y configuración de la base de datos.
   - **helpers/:** Utilidades y funciones auxiliares.
@@ -50,8 +50,3 @@ Describe la estructura de directorios del proyecto y la funcionalidad de cada un
 - **.env:** Archivo de configuración que almacena variables de entorno.
 - **package.json:** Archivo de configuración de Node.js que describe el proyecto y sus dependencias.
 - **README.md:** Documentación principal del proyecto.
-
-
-
-
-
