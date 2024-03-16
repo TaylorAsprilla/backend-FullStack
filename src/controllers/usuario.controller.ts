@@ -2,6 +2,38 @@ import { Request, Response } from "express";
 import UsuarioModel from "../models/usuario.model";
 import bcrypt from "bcryptjs";
 
+export const getUsuarios = async (req: Request, res: Response) => {
+  try {
+    const usuarios = await UsuarioModel.find();
+    res.json({
+      ok: true,
+      usuarios,
+    });
+  } catch (error) {
+    res.status(400).json({
+      ok: false,
+      msg: `Error consultar los usuarios`,
+    });
+  }
+};
+
+export const getUnUsuario = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+
+    const usuarios = await UsuarioModel.findById({ _id: id });
+    res.json({
+      ok: true,
+      usuarios,
+    });
+  } catch (error) {
+    res.status(400).json({
+      ok: false,
+      msg: `Error consultar el usuario`,
+    });
+  }
+};
+
 export const crearUsuario = async (req: Request, res: Response) => {
   const { body } = req;
   const { login, password } = body;
@@ -30,7 +62,7 @@ export const crearUsuario = async (req: Request, res: Response) => {
     res.status(200).json({
       ok: true,
       msg: "Usuario creado satisfactoriamente",
-      usuarioCreado,
+      usuario: usuarioCreado,
     });
   } catch (error) {
     console.error(error);
@@ -38,6 +70,49 @@ export const crearUsuario = async (req: Request, res: Response) => {
       ok: false,
       error,
       msg: "Error al crear el usuario, comuniquese con el administrador",
+    });
+  }
+};
+
+export const updateUsuario = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+    const { body } = req;
+
+    const usuarioActualizado = await UsuarioModel.findByIdAndUpdate(id, body, {
+      new: true,
+    });
+
+    res.json({
+      ok: true,
+      msg: "Usuario Actualizado",
+      usuario: usuarioActualizado,
+    });
+  } catch (error) {
+    res.status(400).json({
+      ok: false,
+      msg: `Error consultar los clientes`,
+    });
+  }
+};
+
+export const deleteUsuario = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+
+    const { body } = req;
+
+    const usuarioEliminado = await UsuarioModel.findByIdAndDelete(id);
+
+    res.json({
+      ok: true,
+      msg: "Usuario Eliminado",
+      usuario: usuarioEliminado,
+    });
+  } catch (error) {
+    res.status(400).json({
+      ok: false,
+      msg: `Error consultar los clientes`,
     });
   }
 };

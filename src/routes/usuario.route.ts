@@ -1,7 +1,14 @@
 import { Router } from "express";
 import { check } from "express-validator";
 import { validateFields } from "../middlewares/validate-fields";
-import { crearUsuario } from "../controllers/usuario.controller";
+import {
+  crearUsuario,
+  deleteUsuario,
+  getUnUsuario,
+  getUsuarios,
+  updateUsuario,
+} from "../controllers/usuario.controller";
+import validateJWT from "../middlewares/validate-jwt";
 
 // path: /api/v1/usuario
 const router = Router();
@@ -23,5 +30,9 @@ router.post(
   ],
   crearUsuario
 );
+router.get("/", validateJWT, getUsuarios);
+router.get("/:id", validateJWT, getUnUsuario);
+router.put("/:id", validateJWT, updateUsuario);
+router.delete("/:id", validateJWT, deleteUsuario);
 
 export default router;
